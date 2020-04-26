@@ -1,0 +1,8 @@
+allennlp
+# For RC models
+word2number>=1.1
+py-rouge==1.1
+nltk
+
+optuna @ git+https://git@github.com/optuna/optuna@master
+allennlp_models @ git+https://github.com/allenai/allennlp-models@master
