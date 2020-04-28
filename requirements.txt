@@ -1,0 +1,3 @@
+# allennlp_models @ git+https://github.com/allenai/allennlp-models@master
+allennlp @ git+https://github.com/allenai/allennlp@master
+optuna @ git+https://git@github.com/optuna/optuna@master
