@@ -4,12 +4,12 @@ local cuda_device = 0;
 local num_epochs = 15;
 local seed = 42;
 
-local embedding_dim = 256;
+local embedding_dim = 128;
 local dropout = 0.2;
 local lr = 0.1;
 local max_filter_size = 4;
-local num_filters = 16;
-local output_dim = 256;
+local num_filters = 128;
+local output_dim = 128;
 local ngram_filter_sizes = std.range(2, max_filter_size);
 
 {
