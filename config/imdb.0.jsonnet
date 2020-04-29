@@ -1,12 +1,12 @@
 
-local batch_size = 16;
+local batch_size = 64;
 local cuda_device = 0;
 local num_epochs = 15;
 local seed = 42;
 
 local embedding_dim = 256;
 local dropout = 0.2;
-local lr = 0.01;
+local lr = 0.1;
 local max_filter_size = 4;
 local num_filters = 16;
 local output_dim = 256;

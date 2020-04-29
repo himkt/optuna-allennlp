@@ -1,5 +1,5 @@
 
-local batch_size = 16;
+local batch_size = 64;
 local cuda_device = 0;
 local num_epochs = 15;
 local seed = 42;
