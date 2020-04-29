@@ -4,13 +4,13 @@ local cuda_device = 0;
 local num_epochs = 15;
 local seed = 42;
 
-local embedding_dim = 256;
-local dropout = 0.2;
-local lr = 0.01;
-local max_filter_size = 4;
-local num_filters = 16;
-local output_dim = 256;
-local ngram_filter_sizes = std.range(2, max_filter_size);
+local embedding_dim = std.extVar('embedding_dim');
+local dropout = std.extVar('dropout');
+local lr = std.extVar('lr');
+local max_filter_size = std.extVar('max_filter_size');
+local num_filters = std.extVar('num_filters');
+local output_dim = std.extVar('output_dim');
+local ngram_filter_sizes = std.range(2, std.parseInt(max_filter_size));
 
 {
   numpy_seed: seed,
