@@ -13,6 +13,9 @@ python3 -m venv venv
 # install libraries
 pip install -r requirements.txt
 
+# train a model using AllenNLP cli
+allennlp train -s result/allennlp config/imdb.0.jsonnet
+
 # run hyperparameter optimization
 python optuna_train.py
 ```
