@@ -9,29 +9,21 @@ import optuna
 
 
 config_file = "./config/imdb.1.jsonnet"
-result_path = "result/optuna/trial_{}"
 
 
 def objective(trial: optuna.Trial) -> float:
-    if trial.number == 0:  # start from the same params as imdb.0.jsonnet
-        trial.suggest_int("embedding_dim", 128, 128)
-        trial.suggest_int("max_filter_size", 4, 4)
-        trial.suggest_int("num_filters", 128, 128)
-        trial.suggest_int("output_dim", 128, 128)
-        trial.suggest_float("dropout", 0.2, 0.2)
-        trial.suggest_float("lr", 1e-1, 1e-1)
-    else:
-        trial.suggest_int("embedding_dim", 32, 256)
-        trial.suggest_int("max_filter_size", 2, 6)
-        trial.suggest_int("num_filters", 32, 256)
-        trial.suggest_int("output_dim", 32, 256)
-        trial.suggest_float("dropout", 0.0, 0.8)
-        trial.suggest_float("lr", 1e-1, 5e-1)
+    trial.suggest_int("embedding_dim", 32, 256)
+    trial.suggest_int("max_filter_size", 2, 6)
+    trial.suggest_int("num_filters", 32, 256)
+    trial.suggest_int("output_dim", 32, 256)
+    trial.suggest_float("dropout", 0.0, 0.8)
+    trial.suggest_float("lr", 5e-3, 5e-1, log=True)
 
     executor = optuna.integration.allennlp.AllenNLPExecutor(
-        trial,  # trial object
-        config_file,  # jsonnet path
-        result_path.format(trial.number),  # directory for snapshots and logs
+        trial=trial,  # trial object
+        config_file=config_file,  # jsonnet path
+        serialization_dir="./result/optuna",  # directory for snapshots and logs
+        metrics="best_validation_accuracy"
     )
     return executor.run()
 
