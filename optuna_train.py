@@ -22,7 +22,7 @@ def objective(trial: optuna.Trial) -> float:
     executor = optuna.integration.allennlp.AllenNLPExecutor(
         trial=trial,  # trial object
         config_file=config_file,  # jsonnet path
-        serialization_dir="./result/optuna",  # directory for snapshots and logs
+        serialization_dir=f"./result/optuna/{trial.number}",  # directory for snapshots and logs
         metrics="best_validation_accuracy"
     )
     return executor.run()
