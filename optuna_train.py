@@ -52,3 +52,5 @@ if __name__ == '__main__':
     print("  Params: ")
     for key, value in trial.params.items():
         print("    {}: {}".format(key, value))
+
+    optuna.integration.allennlp.dump_best_config(config_file, "best.imdb1.json", study)
