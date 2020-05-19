@@ -8,9 +8,6 @@ It requires sqlite3 to run this example.
 import optuna
 
 
-config_file = "./config/imdb.1.jsonnet"
-
-
 def objective(trial: optuna.Trial) -> float:
     trial.suggest_int("embedding_dim", 32, 256)
     trial.suggest_int("max_filter_size", 2, 6)
@@ -21,7 +18,7 @@ def objective(trial: optuna.Trial) -> float:
 
     executor = optuna.integration.allennlp.AllenNLPExecutor(
         trial=trial,  # trial object
-        config_file=config_file,  # jsonnet path
+        config_file="./config/imdb_optuna.jsonnet",  # jsonnet path
         serialization_dir=f"./result/optuna/{trial.number}",  # directory for snapshots and logs
         metrics="best_validation_accuracy"
     )
@@ -44,13 +41,4 @@ if __name__ == '__main__':
         timeout=timeout,  # threshold for executing time (sec)
     )
 
-    print("Number of finished trials: ", len(study.trials))
-    print("Best trial:")
-    trial = study.best_trial
-
-    print("  Value: ", trial.value)
-    print("  Params: ")
-    for key, value in trial.params.items():
-        print("    {}: {}".format(key, value))
-
-    optuna.integration.allennlp.dump_best_config(config_file, "best.imdb1.json", study)
+    optuna.integration.allennlp.dump_best_config("./config/imdb_optuna.jsonnet", "best_imdb_optuna.json", study)

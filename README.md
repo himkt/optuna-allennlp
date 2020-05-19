@@ -14,7 +14,7 @@ python3 -m venv venv
 pip install -r requirements.txt
 
 # train a model using AllenNLP cli
-allennlp train -s result/allennlp config/imdb.0.jsonnet
+allennlp train -s result/allennlp config/imdb_baseline.jsonnet
 
 # run hyperparameter optimization
 python optuna_train.py
@@ -25,7 +25,7 @@ python optuna_train.py
 
 Demonstration uses GPU.
 If you want to run the scripts in this repository,
-please update `cuda_device = -1` in [allennlp config](https://github.com/himkt/optuna-allennlp/blob/master/config/imdb.0.jsonnet#L3) and [optuna_config](https://github.com/himkt/optuna-allennlp/blob/master/config/imdb.1.jsonnet#L3).
+please update `cuda_device = -1` in [allennlp config](https://github.com/himkt/optuna-allennlp/blob/master/config/imdb_baseline.jsonnet#L3) and [optuna_config](https://github.com/himkt/optuna-allennlp/blob/master/config/imdb_optuna.jsonnet#L3).
 
 
 # Result
