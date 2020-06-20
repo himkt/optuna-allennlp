@@ -35,4 +35,5 @@ please update `cuda_device = -1` in [allennlp config](https://github.com/himkt/o
 
 # Blog Articles
 
-- Japanese: https://medium.com/@himkt/41ad5e8b2d1a
+- Japanese: https://medium.com/p/41ad5e8b2d1a
+- English: https://medium.com/p/54b4bfecd78b
