@@ -1,6 +1,6 @@
 # Optuna using AllenNLP
 
-Demonstration for using [Optuna](https://github.com/optuna/optuna) with AllenNLP integration.
+Demonstration for using [Optuna](https://github.com/optuna/optuna) with [AllenNLP](https://github.com/allenai/allennlp) integration.
 
 
 # Quick Start
