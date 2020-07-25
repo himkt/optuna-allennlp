@@ -22,6 +22,7 @@ from torch.optim import SGD
 from torch.utils.data import DataLoader
 
 from optuna.integration import AllenNLPPruningCallback
+from optuna import Trial
 
 
 def prepare_data():
@@ -45,24 +46,35 @@ def create_model(
         output_dim: int,
         dropout: float,
 ):
-    embedding = Embedding(embedding_dim=embedding_dim, trainable=True, vocab=vocab)
-    embedder = BasicTextFieldEmbedder({"tokens": embedding})
-    encoder = CnnEncoder(
-        ngram_filter_sizes=range(1, max_filter_size),
-        num_filters=num_filters,
-        embedding_dim=embedding_dim,
-        output_dim=output_dim,
-    )
     model = BasicClassifier(
-        text_field_embedder=embedder,
-        seq2vec_encoder=encoder,
+        text_field_embedder=BasicTextFieldEmbedder(
+            {
+                "tokens": Embedding(
+                    embedding_dim=embedding_dim,
+                    trainable=True,
+                    vocab=vocab
+                )
+            }
+        ),
+        seq2vec_encoder=CnnEncoder(
+            ngram_filter_sizes=range(2, max_filter_size),
+            num_filters=num_filters,
+            embedding_dim=embedding_dim,
+            output_dim=output_dim,
+        ),
         dropout=dropout,
         vocab=vocab,
     )
     return model
 
 
-def objective_fn(trial, device: int, target_metric: str, base_serialization_dir: str):
+def objective_fn(
+        trial: Trial,
+        device: int,
+        direction: str,
+        target_metric: str,
+        base_serialization_dir: str,
+):
     embedding_dim = trial.suggest_int("embedding_dim", 16, 512)
     max_filter_size = trial.suggest_int("max_filter_size", 3, 6)
     num_filters = trial.suggest_int("num_filters", 16, 512)
@@ -85,16 +97,15 @@ def objective_fn(trial, device: int, target_metric: str, base_serialization_dir:
         optimizer=optimizer,
         data_loader=data_loader,
         validation_data_loader=validation_data_loader,
-        validation_metric="+" + target_metric,  # TODO (himkt): use direction
+        validation_metric=("+" if direction == "MAXIMIZE" else "-") + target_metric,
         patience=None,  # `patience=None` since it could conflict with AllenNLPPruningCallback
         num_epochs=50,
         cuda_device=device,
         serialization_dir=serialization_dir,
-        epoch_callbacks=[AllenNLPPruningCallback(trial, "validation_" + target_metric)],
+        epoch_callbacks=[AllenNLPPruningCallback(trial, f"validation_{target_metric}")],
     )
     vocab.save_to_files(os.path.join(serialization_dir, "vocabulary"))
-    result = trainer.train()
-    return result[f"best_validation_{target_metric}"]
+    return trainer.train()[f"best_validation_{target_metric}"]
 
 
 @click.command()
@@ -114,8 +125,9 @@ def main(device, target_metric, base_serialization_dir, clear_at_end):
     objective = functools.partial(
         objective_fn,
         device=device,
+        direction=study.direction.name,
         target_metric=target_metric,
-        base_serialization_dir=base_serialization_dir
+        base_serialization_dir=base_serialization_dir,
     )
     study.optimize(objective, n_trials=50)
 
