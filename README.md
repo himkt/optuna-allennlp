@@ -18,6 +18,9 @@ allennlp train -s result/allennlp config/imdb_baseline.jsonnet
 
 # run hyperparameter optimization
 python optuna_train.py
+
+# define-and-run style example
+python optuna_train_custom_trainer.py --device 0 --target_metric accuracy --base_serialization_dir result
 ```
 
 
