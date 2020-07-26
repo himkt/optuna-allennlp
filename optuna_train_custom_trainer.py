@@ -75,12 +75,12 @@ def objective_fn(
         target_metric: str,
         base_serialization_dir: str,
 ):
-    embedding_dim = trial.suggest_int("embedding_dim", 16, 512)
+    embedding_dim = trial.suggest_int("embedding_dim", 128, 256)
     max_filter_size = trial.suggest_int("max_filter_size", 3, 6)
-    num_filters = trial.suggest_int("num_filters", 16, 512)
-    output_dim = trial.suggest_int("output_dim", 16, 512)
-    dropout = trial.suggest_float("dropout", 0, 1.0)
-    lr = trial.suggest_float("lr", 1e-5, 1e-1, log=True)
+    num_filters = trial.suggest_int("num_filters", 128, 256)
+    output_dim = trial.suggest_int("output_dim", 128, 512)
+    dropout = trial.suggest_float("dropout", 0, 1.0, log=True)
+    lr = trial.suggest_float("lr", 1e-4, 1e-1, log=True)
 
     train_dataset, valid_dataset, vocab = prepare_data()
     model = create_model(vocab, embedding_dim, max_filter_size, num_filters, output_dim, dropout)
