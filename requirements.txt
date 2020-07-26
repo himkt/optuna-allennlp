@@ -1,2 +1,2 @@
 allennlp
-optuna
+optuna @ git+https://github.com/optuna/optuna@master
