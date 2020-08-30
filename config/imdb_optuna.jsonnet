@@ -65,7 +65,6 @@ local ngram_filter_sizes = std.range(2, max_filter_size);
     epoch_callbacks: [
       {
         type: 'optuna_pruner',
-        monitor: 'best_validation_accuracy',
       },
     ],
   },
