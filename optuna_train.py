@@ -31,6 +31,7 @@ if __name__ == '__main__':
         sampler=optuna.samplers.TPESampler(seed=24),
         study_name="optuna_allennlp",
         direction="maximize",
+        pruner=optuna.pruners.HyperbandPruner(),
     )
 
     timeout = 60 * 60 * 10  # timeout (sec): 60*60*10 sec => 10 hours
