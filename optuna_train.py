@@ -13,7 +13,7 @@ def objective(trial: optuna.Trial) -> float:
     trial.suggest_int("max_filter_size", 2, 6)
     trial.suggest_int("num_filters", 32, 256)
     trial.suggest_int("output_dim", 32, 256)
-    trial.suggest_float("dropout", 0.0, 0.8)
+    trial.suggest_float("dropout", 0.0, 1.0)
     trial.suggest_float("lr", 5e-3, 5e-1, log=True)
 
     executor = optuna.integration.allennlp.AllenNLPExecutor(

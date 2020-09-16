@@ -79,7 +79,7 @@ def objective_fn(
     max_filter_size = trial.suggest_int("max_filter_size", 3, 6)
     num_filters = trial.suggest_int("num_filters", 128, 256)
     output_dim = trial.suggest_int("output_dim", 128, 512)
-    dropout = trial.suggest_float("dropout", 0, 1.0, log=True)
+    dropout = trial.suggest_float("dropout", 0, 1.0, log=False)
     lr = trial.suggest_float("lr", 1e-4, 1e-1, log=True)
 
     train_dataset, valid_dataset, vocab = prepare_data()
