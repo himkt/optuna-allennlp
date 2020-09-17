@@ -8,6 +8,12 @@ Demonstration for using [Optuna](https://github.com/optuna/optuna) with [AllenNL
 
 # Quick Start
 
+## Google Colab
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/himkt/optuna-allennlp/blob/master/notebook/Optuna_AllenNLP.ipynb)
+
+## On your computer
+
 ```bash
 # create virtual environment
 python3 -m venv venv
