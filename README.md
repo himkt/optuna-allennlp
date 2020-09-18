@@ -32,7 +32,7 @@ python optuna_train.py
 python optuna_train_custom_trainer.py --device 0 --target_metric accuracy --base_serialization_dir result
 ```
 
-
+A
 # Attention!
 
 Demonstration uses GPU.
