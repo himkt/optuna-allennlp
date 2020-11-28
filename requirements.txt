@@ -1,2 +1,3 @@
 allennlp
-optuna @ git+https://github.com/himkt/optuna@feat/allennlp-jsonnet-pruning
+allennlp-optuna
+optuna

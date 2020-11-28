@@ -32,7 +32,24 @@ python optuna_train.py
 python optuna_train_custom_trainer.py --device 0 --target_metric accuracy --base_serialization_dir result
 ```
 
-A
+## [New!!] Use `allennlp-optuna`
+
+You can use [`allennlp-optuna`](https://github.com/himkt/allennlp-optuna), an AllenNLP plugin for hyperparameter optimization.
+
+```bash
+
+# Installation
+pip install allennlp-optuna
+
+# You need to register allennlp-optuna to allennlp using .allennlp_plugins
+# It is not required if .allennlp_plugins already exists on your working directory
+echo 'allennlp_optuna' >> .allennlp_plugins
+
+# optimization
+allennlp tune config/imdb_optuna.jsonnet config/hparams.json --serialization-dir result
+```
+
+
 # Attention!
 
 Demonstration uses GPU.
